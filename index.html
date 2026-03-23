@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdowns</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+}
+.bar {
+  transition: width 1s ease-in-out;
+}
+</style>
+</head>
+
+<body class="text-white font-sans min-h-screen flex items-center justify-center">
+
+<div class="w-full max-w-2xl space-y-8 p-6">
+
+  <h1 class="text-3xl font-bold text-center">Countdown</h1>
+
+  <!-- Vietnam & Cambodia -->
+  <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 shadow-lg">
+    <a href="vietnam-cambodia.html" class="hover:underline text-xl font-semibold mb-2">Vietnam & Cambodia 🇻🇳🇰🇭</a>
+    <p id="countdown1" class="text-sm mb-3 opacity-80"></p>
+
+    <div class="w-full bg-white/20 rounded-full h-4 overflow-hidden">
+      <div id="bar1" class="bar bg-green-400 h-4 rounded-full w-0"></div>
+    </div>
+  </div>
+
+  <!-- Singapore, United Kingdom, and Ireland -->
+  <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 shadow-lg">
+    <a href="uk.html" class="hover:underline text-xl font-semibold mb-2">Singapore, United Kingdom, and Ireland 🇸🇬🇬🇧🇮🇪</a>
+    <p id="countdown2" class="text-sm mb-3 opacity-80"></p>
+
+    <div class="w-full bg-white/20 rounded-full h-4 overflow-hidden">
+      <div id="bar2" class="bar bg-blue-400 h-4 rounded-full w-0"></div>
+    </div>
+  </div>
+
+    <!-- Election -->
+  <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 shadow-lg">
+    <a href="election.html" class="hover:underline text-xl font-semibold mb-2">2026 General Election</a>
+    <p id="countdown3" class="text-sm mb-3 opacity-80"></p>
+
+    <div class="w-full bg-white/20 rounded-full h-4 overflow-hidden">
+      <div id="bar3" class="bar bg-yellow-400 h-4 rounded-full w-0"></div>
+    </div>
+  </div>
+
+    <!-- GTA VI -->
+  <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 shadow-lg">
+    <a href="gta.html" class="hover:underline text-xl font-semibold mb-2">GTA VI</a>
+    <p id="countdown4" class="text-sm mb-3 opacity-80"></p>
+
+    <div class="w-full bg-white/20 rounded-full h-4 overflow-hidden">
+      <div id="bar4" class="bar bg-red-400 h-4 rounded-full w-0"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function setupCountdown(startDateStr, targetDateStr, countdownEl, barEl) {
+  const start = new Date(startDateStr);
+  const end = new Date(targetDateStr);
+
+  function update() {
+    const now = new Date();
+
+    const total = end - start;
+    const elapsed = now - start;
+    const remaining = end - now;
+
+    // Countdown text
+    if (remaining <= 0) {
+      countdownEl.innerText = "🎉 It's time!";
+      barEl.style.width = "100%";
+      return;
+    }
+
+    const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((remaining / (1000 * 60 * 60)) % 24);
+
+    countdownEl.innerText = `${days} days, ${hours} hours remaining`;
+
+    // Progress calculation
+    let progress = (elapsed / total) * 100;
+
+    // Clamp between 0–100
+    progress = Math.max(0, Math.min(100, progress));
+
+    barEl.style.width = progress + "%";
+  }
+
+  update();
+  setInterval(update, 1000 * 60);
+}
+
+// Vietnam & Cambodia (started Nov 2024)
+setupCountdown(
+  "November 1, 2024 00:00:00",
+  "March 30, 2026 17:45:00",
+  document.getElementById("countdown1"),
+  document.getElementById("bar1")
+);
+
+// United Kingdom (started Jan 2026)
+setupCountdown(
+  "January 2, 2026 00:00:00",
+  "May 23, 2026 07:10:00",
+  document.getElementById("countdown2"),
+  document.getElementById("bar2")
+);
+
+// General Election (started Jan 2026)
+setupCountdown(
+  "January 1, 2026 00:00:00",
+  "November 7, 2026 19:00:00",
+  document.getElementById("countdown3"),
+  document.getElementById("bar3")
+);
+
+// GTA VI (started Jan 2026)
+setupCountdown(
+  "January 1, 2026 00:00:00",
+  "November 19, 2026 00:00:00",
+  document.getElementById("countdown4"),
+  document.getElementById("bar4")
+);
+</script>
+
+</body>
+</html>
